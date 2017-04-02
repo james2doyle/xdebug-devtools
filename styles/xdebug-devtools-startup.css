@@ -1,3 +1,11 @@
+/*
+ * this file is injected into all pages,
+ * we hide the `.xdebug-error` because we are emulating a "pluck"
+ * into our devtool panel
+ * we also style out cute little notification that
+ * reminds users we have this extension enabled
+ */
+
 .xdebug-error {
   display: none;
   position: absolute !important;

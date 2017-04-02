@@ -1,3 +1,4 @@
+// TODO: cleanup this page
 var devtools = null;
 
 const devToolsListener = function(message, sender, sendResponse) {

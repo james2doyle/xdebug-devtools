@@ -24,6 +24,7 @@ function collectErrors(callback) {
   );
 };
 
+// table headers
 const tableHeaderMap = [
   'number',
   'time',
@@ -32,6 +33,7 @@ const tableHeaderMap = [
   'location'
 ];
 
+// type hinting for the table data
 const tableHeaderTypeMap = [
   'number',
   'number',
@@ -43,6 +45,7 @@ const tableHeaderTypeMap = [
 // the number of header elements in a xdebug dump
 const rowCount = 5;
 
+// helper for slicing the array
 function arrayChunk(arr, len) {
   let chunks = [],
     i = 0,
@@ -55,13 +58,17 @@ function arrayChunk(arr, len) {
 }
 
 function stringFormatting(string) {
-  // http://php.net/manual/en/function.require.php
+  // http://php.net/manual/en/function.${slugifiedFunctionName}.php
   const matches = string.match(/(require.*|include)\({1}\s?\'(.+)\'\s?\){1}?/);
   const fns = string.match(/(\w+[_]\w+)\s?/);
 
+  // is this a function that is showing args?
   if (matches && matches.length > 2) {
+    // links to the PHP docs for this function
+    // TODO: add copy-to-clipboard for the file paths
     string = `<a href="http://php.net/manual/en/function.${matches[1].replace(/\_/gi, '-')}.php" target="_blank" title="View ${matches[1]} on PHP.net" class="php-function">${matches[1]}</a>(<a href="file://${matches[2]}" title="${matches[2]}" target="_top" class="php-file"><em>"${matches[2]}"</em></a>)`;
   } else if (fns) {
+    // this is some plain function with no args - link to doc search
     string = `<a href="http://php.net/manual-lookup.php?pattern=${fns[1]}&scope=quickref" target="_blank" title="Search ${fns[1]} on PHP.net">${string}</a>`;
   }
 
@@ -81,6 +88,7 @@ function formatMessage(string) {
   return string;
 }
 
+// turns the xdebug HTML table into an object
 function objectify(table) {
   const info = table.querySelectorAll('tr:nth-child(n+4) td');
   const message = table.querySelector('th:first-child');
@@ -97,14 +105,19 @@ function objectify(table) {
 }
 
 function init() {
+  // where we store the errors from the DOM
   const errorList = document.getElementById('error-list');
+  // nuke the info
   errorList.innerHTML = null;
   collectErrors(function(res) {
+    // damn - something happened
     if (!res) {
       errorList.innerHTML = `<p class="error-message">There was an error interacting with the DOM.</p>`;
       return;
     }
+    // puts the tables from the DOM into the devtools panel.html
     errorList.innerHTML = res.join("\n");
+    // decorate the new HTML with additional features
     let items = document.querySelectorAll('table tr:nth-child(n+4) td');
     for (let i = 0; i < items.length; i++) {
       items[i].innerHTML = stringFormatting(items[i].innerText);
