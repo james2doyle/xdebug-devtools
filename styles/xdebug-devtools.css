@@ -1,0 +1,105 @@
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background-color: #f2f2f2;
+}
+
+h1 {
+  color: #333;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: normal;
+  margin-top: 0;
+}
+
+h2 {
+  color: #333;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: normal;
+  margin-top: 0;
+}
+
+p, span, h1, h2 {
+  color: #999;
+}
+
+button {
+  background-image: linear-gradient(hsl(0, 0%, 93%), hsl(0, 0%, 93%) 38%, hsl(0, 0%, 87%));
+  border: 1px solid hsla(0, 0%, 0%, 0.25);
+  border-radius: 2px;
+  box-shadow: 0 1px 0 hsla(0, 0%, 0%, 0.08), inset 0 1px 2px hsla(0, 100%, 100%, 0.75);
+  color: #333;
+  font-size: 12px;
+  margin: 0 1px 0 0;
+  text-shadow: 0 1px 0 hsl(0, 0%, 94%);
+  min-height: 2em !important;
+  padding-left: 10px;
+  padding-right: 10px;
+  -webkit-user-select: none;
+  flex: none;
+}
+
+.error-message {
+  color: #ff0000;
+}
+
+.xdebug-error {
+  width: 100%;
+  /*table-layout: fixed;*/
+  margin: 0 0 1rem;
+  border-collapse: collapse;
+  border-right: 1px #4f5b93 solid;
+  border-left: 1px #4f5b93 solid;
+  font-size: 15px;
+  font-family: monospace;
+}
+
+.xdebug-error th,
+.xdebug-error td {
+  padding: 6px;
+  border: 1px #4f5b93 solid;
+}
+
+.xdebug-error td font[color="#00bb00"] {
+  color: #6699cc !important;
+  font-style: italic;
+  overflow-wrap: break-word;
+}
+
+.xdebug-error th {
+  background-color: #8892be;
+  color: #fff;
+}
+
+.xdebug-error td {
+  color: #666;
+  background-color: #fff;
+}
+
+.xdebug-error td a {
+  color: #793862;
+}
+
+.xdebug-error td a.php-file {
+  color: #693;
+}
+
+@keyframes xdebugblink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.xdebug-error span {
+  background-color: transparent !important;
+  color: #DD0000 !important;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+  margin-right: 0.25em;
+  font-family: Impact;
+  animation: xdebugblink 1s ease infinite both;
+}
