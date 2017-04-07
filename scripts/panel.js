@@ -6,56 +6,30 @@ function log(...s) {
 }
 
 function collectErrors(callback) {
-  chrome.devtools.inspectedWindow.eval(
-    `Array.from(document.querySelectorAll('.xdebug-error'))
+  chrome.storage.sync.get('remove', function(item) {
+    let template = `Array.from(document.querySelectorAll('.xdebug-error'))
       .map((el) => {
-        // remove the inject br tags
-        let br = el.parentNode.previousElementSibling;
-        if (br.tagName == 'BR') {
-          br.parentNode.removeChild(br);
-        }
-        const output = el.outerHTML;
-        el.parentNode.parentNode.removeChild(el.parentNode);
-        return output;
-      })`,
-    function(result, isException) {
-      callback(result);
+        return el.outerHTML;
+      })`;
+    if (item.remove) {
+      template = `Array.from(document.querySelectorAll('.xdebug-error'))
+        .map((el) => {
+          // remove the inject br tags
+          let br = el.parentNode.previousElementSibling;
+          if (br.tagName == 'BR') {
+            br.parentNode.removeChild(br);
+          }
+          const output = el.outerHTML;
+          el.parentNode.parentNode.removeChild(el.parentNode);
+          return output;
+        })`;
     }
-  );
+
+    chrome.devtools.inspectedWindow.eval(template, (result, isException) => {
+      callback(result);
+    });
+  });
 };
-
-// table headers
-const tableHeaderMap = [
-  'number',
-  'time',
-  'memory',
-  'function',
-  'location'
-];
-
-// type hinting for the table data
-const tableHeaderTypeMap = [
-  'number',
-  'number',
-  'number',
-  'string',
-  'string'
-];
-
-// the number of header elements in a xdebug dump
-const rowCount = 5;
-
-// helper for slicing the array
-function arrayChunk(arr, len) {
-  let chunks = [],
-    i = 0,
-    n = arr.length;
-  while (i < n) {
-    chunks.push(arr.slice(i, i += len));
-  }
-
-  return chunks;
-}
 
 function stringFormatting(string) {
   // http://php.net/manual/en/function.${slugifiedFunctionName}.php
@@ -88,22 +62,6 @@ function formatMessage(string) {
   return string;
 }
 
-// turns the xdebug HTML table into an object
-function objectify(table) {
-  const info = table.querySelectorAll('tr:nth-child(n+4) td');
-  const message = table.querySelector('th:first-child');
-  const chunks = arrayChunk(Array.from(info), rowCount);
-  const collection = [];
-  chunks.forEach((chunk, chunkCount) => {
-    collection[chunkCount] = {};
-    collection[chunkCount].message = formatMessage(message.innerText);
-    chunk.forEach((el, index) => {
-      collection[chunkCount][tableHeaderMap[index]] = (tableHeaderTypeMap[index] === 'number') ? parseFloat(el.innerText) : stringFormatting(el.innerText);
-    })
-  });
-  return collection;
-}
-
 function init() {
   // where we store the errors from the DOM
   const errorList = document.getElementById('error-list');
@@ -117,14 +75,17 @@ function init() {
     }
     // puts the tables from the DOM into the devtools panel.html
     errorList.innerHTML = res.join("\n");
+    chrome.storage.sync.get('restyle', function(item) {
+      if (item.restyle) {
+        let tables = document.querySelectorAll('table');
+        Array.from(tables).forEach(el => el.classList.add('xdebug-error-restyled'));
+      }
+    });
     // decorate the new HTML with additional features
     let items = document.querySelectorAll('table tr:nth-child(n+4) td');
     for (let i = 0; i < items.length; i++) {
       items[i].innerHTML = stringFormatting(items[i].innerText);
     }
-    // const tables = Array.from(errorList.querySelectorAll('table'));
-    // const data = tables.map(objectify);
-    // console.log(data);
   });
 }
 

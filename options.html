@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Xdebug Extension Options</title>
+  <link rel="stylesheet" href="styles/primer.css">
+</head>
+<body>
+  <div class="container">
+    <div class="columns">
+      <div class="col-12 column">
+        <h1>Xdebug Options</h1>
+        <h3>Control how the extension acts on the page.</h3>
+      </div>
+      <div class="one-half column">
+        <form id="the-form">
+          <div class="form-checkbox">
+            <label><input type="checkbox" name="panel" id="panel"> Enable Panel</label>
+            <p class="note">Enable the panel in the DevTools that shows the errors.</p>
+          </div>
+
+          <div class="form-checkbox">
+            <label><input type="checkbox" name="remove" id="remove"> Remove From DOM</label>
+            <p class="note">Remove the errors from the DOM.</p>
+          </div>
+
+          <div class="form-checkbox">
+            <label><input type="checkbox" name="notify" id="notify"> Notify</label>
+            <p class="note">Show a notification for when errors are detected.</p>
+          </div>
+
+          <div class="form-checkbox">
+            <label><input type="checkbox" name="restyle" id="restyle"> Restyle Xdebug</label>
+            <p class="note">Apply new styles to the Xdebug output.</p>
+          </div>
+
+          <div class="form-checkbox">
+            <label><input type="checkbox" name="console" id="console"> Enable Console</label>
+            <p class="note">Use <code>console.error</code> to log Xdebug errors in the javascript console.</p>
+          </div>
+
+          <div class="form-checkbox">
+            <label><input type="checkbox" name="console_deep" id="console_deep"> Enable Deep Console</label>
+            <p class="note">Used with <code>console</code> to include the full object of the Xdebug errors.</p>
+          </div>
+
+          <div class="flash flash-success mb-3" id="status" style="display: none">Flash message with an icon goes here.</div>
+          <button class="btn btn-secondary" type="submit" id="save">Save</button>
+        </form>
+      </div>
+      <div class="four-half column"></div>
+    </div>
+  </div>
+  <script src="scripts/options.js"></script>
+</body>
+</html>

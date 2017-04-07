@@ -15,10 +15,21 @@
   clip: rect(1px, 1px, 1px, 1px);
 }
 
+/* makes the errors visible again */
+.xdebug-error.xdebug-visible {
+  display: table;
+  position: initial !important;
+  height: auto;
+  width: auto;
+  overflow: visible;
+  clip: initial;
+}
+
 .xdebug-error-notification {
   position: fixed;
   top: 30%;
   left: 0;
+  z-index: 99;
   transform: translate(-100%, 0);
   border: 1px solid #4f5b93;
   background: #8892be;
@@ -39,4 +50,63 @@
 
 .xdebug-error-notification.showing.hidden {
   transform: translate(-100%, 0);
+}
+
+.xdebug-error-restyled {
+  width: 100%;
+  /*table-layout: fixed;*/
+  margin: 0 0 1rem;
+  border-collapse: collapse;
+  border-right: 1px #4f5b93 solid;
+  border-left: 1px #4f5b93 solid;
+  font-size: 15px;
+  font-family: monospace;
+}
+
+.xdebug-error-restyled th,
+.xdebug-error-restyled td {
+  padding: 6px;
+  border: 1px #4f5b93 solid;
+}
+
+.xdebug-error-restyled td font[color="#00bb00"] {
+  color: #6699cc !important;
+  font-style: italic;
+  overflow-wrap: break-word;
+}
+
+.xdebug-error-restyled th {
+  background-color: #8892be;
+  color: #fff;
+}
+
+.xdebug-error-restyled td {
+  color: #666;
+  background-color: #fff;
+}
+
+.xdebug-error-restyled td a {
+  color: #793862;
+}
+
+.xdebug-error-restyled td a.php-file {
+  color: #693;
+}
+
+@keyframes xdebugblink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.xdebug-error-restyled span {
+  background-color: transparent !important;
+  color: #DD0000 !important;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+  margin-right: 0.25em;
+  font-family: Impact;
+  animation: xdebugblink 1s ease infinite both;
 }

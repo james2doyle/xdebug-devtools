@@ -48,7 +48,7 @@ button {
   color: #ff0000;
 }
 
-.xdebug-error {
+.xdebug-error-restyled {
   width: 100%;
   /*table-layout: fixed;*/
   margin: 0 0 1rem;
@@ -59,33 +59,33 @@ button {
   font-family: monospace;
 }
 
-.xdebug-error th,
-.xdebug-error td {
+.xdebug-error-restyled th,
+.xdebug-error-restyled td {
   padding: 6px;
   border: 1px #4f5b93 solid;
 }
 
-.xdebug-error td font[color="#00bb00"] {
+.xdebug-error-restyled td font[color="#00bb00"] {
   color: #6699cc !important;
   font-style: italic;
   overflow-wrap: break-word;
 }
 
-.xdebug-error th {
+.xdebug-error-restyled th {
   background-color: #8892be;
   color: #fff;
 }
 
-.xdebug-error td {
+.xdebug-error-restyled td {
   color: #666;
   background-color: #fff;
 }
 
-.xdebug-error td a {
+.xdebug-error-restyled td a {
   color: #793862;
 }
 
-.xdebug-error td a.php-file {
+.xdebug-error-restyled td a.php-file {
   color: #693;
 }
 
@@ -98,7 +98,7 @@ button {
   }
 }
 
-.xdebug-error span {
+.xdebug-error-restyled span {
   background-color: transparent !important;
   color: #DD0000 !important;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
