@@ -139,9 +139,9 @@
           // console.error('Xdebug ' + data[0].message.replace('( ! ) ', ''), ...data);
           chrome.storage.sync.get('console_deep', function(item) {
             if (item.console_deep) {
-              console.error('Xdebug ' + data[0].message, data[0].filename, data[0].linenumber, ...data);
+              console.error(`Xdebug ${data[0].message}`, `at ${data[0].filename}:${data[0].linenumber}`, ...data);
             } else {
-              console.error('Xdebug ' + data[0].message, data[0].filename, data[0].linenumber);
+              console.error(`Xdebug ${data[0].message}`, `at ${data[0].filename}:${data[0].linenumber}`);
             }
           });
         });
